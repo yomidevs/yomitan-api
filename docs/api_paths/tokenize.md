@@ -25,9 +25,6 @@ Returns tokenized text segments for input text, including readings.
 
 The response contains an array with parsing results from Yomitan's internal `parseText` method. Each element in the content array represents a parsed segment with its reading(s) and text.
 
-<details>
-<summary>Expand to view response</summary>
-
 ```json
 [
   {
@@ -50,5 +47,3 @@ The response contains an array with parsing results from Yomitan's internal `par
   }
 ]
 ```
-
-</details>
