@@ -77,7 +77,7 @@ def anki_fields_kanji() -> None:
 def tokenize() -> None:
     print("Requesting tokenize:")
     params = {
-        "text": "自民党の総裁選挙",
+        "text": "ヨナグニサンはすごく大きいとかわいい、ガの触角最高",
         "scanLength": 10,
     }
     response = requests.post(request_url + "/tokenize", json = params, timeout = request_timeout)
