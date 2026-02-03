@@ -16,7 +16,7 @@
 
 3. Run `python install_yomitan_api.py` and follow the prompts. If you do not see any errors, it has successfully installed.
 
-    **If you use Firefox or have built Yomitan from source, please refer to the [How to find your extension ID](#how-to-find-your-extension-id) section below.**
+    **If you have built Yomitan from source, please refer to the [How to find your extension ID](#how-to-find-your-extension-id) section below.**
 
 4. Go to the Yomitan settings page on your browser.
 
@@ -28,7 +28,7 @@
 
 ## How to find your extension ID
 
-If you are a Firefox user and/or have built Yomitan from source, you need to obtain the extension ID for Yomitan. If you reinstall Yomitan, you may need to get the extension ID again.
+If you have built Yomitan from source, you need to obtain the extension ID for Yomitan. If you reinstall Yomitan, you may need to get the extension ID again.
 
 - Chrome/Chromium/Edge:
 
