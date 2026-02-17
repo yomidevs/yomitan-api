@@ -53,6 +53,7 @@ Due to this being a data format used internally by Yomitan, no guarantees are ma
       "headwords": [
         {
           "index": 0,
+          "headwordIndex": 0,
           "term": "分かる",
           "reading": "わかる",
           "sources": [
@@ -714,6 +715,7 @@ Due to this being a data format used internally by Yomitan, no guarantees are ma
           "dictionaryIndex": 2,
           "dictionaryAlias": "JPDBv2㋕",
           "hasReading": true,
+          "frequencyMode": "rank-based",
           "frequency": 455,
           "displayValue": "455㋕",
           "displayValueParsed": false
@@ -725,6 +727,7 @@ Due to this being a data format used internally by Yomitan, no guarantees are ma
           "dictionaryIndex": 2,
           "dictionaryAlias": "JPDBv2㋕",
           "hasReading": true,
+          "frequencyMode": "rank-based",
           "frequency": 465,
           "displayValue": "465",
           "displayValueParsed": false
@@ -736,6 +739,7 @@ Due to this being a data format used internally by Yomitan, no guarantees are ma
           "dictionaryIndex": 3,
           "dictionaryAlias": "BCCWJ",
           "hasReading": true,
+          "frequencyMode": "rank-based",
           "frequency": 85,
           "displayValue": null,
           "displayValueParsed": false
@@ -747,6 +751,7 @@ Due to this being a data format used internally by Yomitan, no guarantees are ma
           "dictionaryIndex": 3,
           "dictionaryAlias": "BCCWJ",
           "hasReading": true,
+          "frequencyMode": "rank-based",
           "frequency": 105,
           "displayValue": null,
           "displayValueParsed": false
@@ -775,6 +780,7 @@ Due to this being a data format used internally by Yomitan, no guarantees are ma
       "headwords": [
         {
           "index": 0,
+          "headwordIndex": 0,
           "term": "解る",
           "reading": "わかる",
           "sources": [
@@ -1436,6 +1442,7 @@ Due to this being a data format used internally by Yomitan, no guarantees are ma
           "dictionaryIndex": 2,
           "dictionaryAlias": "JPDBv2㋕",
           "hasReading": true,
+          "frequencyMode": "rank-based",
           "frequency": 455,
           "displayValue": "455㋕",
           "displayValueParsed": false
@@ -1447,6 +1454,7 @@ Due to this being a data format used internally by Yomitan, no guarantees are ma
           "dictionaryIndex": 2,
           "dictionaryAlias": "JPDBv2㋕",
           "hasReading": true,
+          "frequencyMode": "rank-based",
           "frequency": 8354,
           "displayValue": "8354",
           "displayValueParsed": false
