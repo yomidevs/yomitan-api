@@ -72,8 +72,13 @@ def send_response(request_handler, status_code: int, content_type: str, data: st
     request_handler.end_headers()
     request_handler.wfile.write(bytes(data, "utf-8"))
 
+def handle_invalid_method(request_handler) -> None:
+    request_handler.send_response(405) # Method Not Allowed
+    request_handler.send_header("Allow", "POST")
+    request_handler.end_headers()
+
 class RequestHandler(http.server.BaseHTTPRequestHandler):
-    def do_POST(self) -> None:  # noqa: N802
+    def do_POST(self) -> None:
         parsed_url = urllib.parse.urlparse(self.path)
         path = parsed_url.path[1:]
         params = urllib.parse.parse_qs(parsed_url.query)
@@ -92,6 +97,16 @@ class RequestHandler(http.server.BaseHTTPRequestHandler):
         yomitan_response = get_message()
 
         send_response(self, yomitan_response["responseStatusCode"], "application/json", json.dumps(yomitan_response["data"], ensure_ascii = False))
+
+    # override all standard HTTP request methods
+    do_GET = handle_invalid_method
+    do_HEAD = handle_invalid_method
+    do_PUT = handle_invalid_method
+    do_DELETE = handle_invalid_method
+    do_CONNECT = handle_invalid_method
+    do_OPTIONS = handle_invalid_method
+    do_TRACE = handle_invalid_method
+    do_PATCH = handle_invalid_method
 
 try:
     ensure_single_instance()
