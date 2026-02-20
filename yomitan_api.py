@@ -73,7 +73,7 @@ def send_response(request_handler, status_code: int, content_type: str, data: st
     request_handler.wfile.write(bytes(data, "utf-8"))
 
 class RequestHandler(http.server.BaseHTTPRequestHandler):
-    def do_POST(self) -> None:  # noqa: N802
+    def do_POST(self) -> None:
         parsed_url = urllib.parse.urlparse(self.path)
         path = parsed_url.path[1:]
         params = urllib.parse.parse_qs(parsed_url.query)
