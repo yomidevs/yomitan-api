@@ -73,7 +73,7 @@ def send_response(request_handler, status_code: int, content_type: str, data: st
     request_handler.wfile.write(bytes(data, "utf-8"))
 
 def handle_invalid_method(request_handler) -> None:
-    request_handler.send_response(405) # Method Not Allowed
+    request_handler.send_error(405, str(request_handler.command) + " method not allowed, only POST is accepted") # Method Not Allowed
     request_handler.send_header("Allow", "POST")
     request_handler.end_headers()
 
