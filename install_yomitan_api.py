@@ -172,8 +172,9 @@ while True:
         break
     
     if not valid_extension_id(browser, extension_id):
-        print(f"Invalid extension ID! Please provide extension ID in the following format: `{expected_extension_id_format}`")
-        continue
+        print("\nWarning! You have provided a (possibly) invalid extension ID!")
+        print(f"Please provide extension ID in the following format: `{expected_extension_id_format}`")
+        print("(Note: The invalid extension ID will still be added in case the browser has changed their format)")
 
     additional_extension_ids.append(extension_id)
 script_path = os.path.join(DIR, "yomitan_api.py")
