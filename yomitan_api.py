@@ -82,7 +82,7 @@ class RequestHandler(http.server.BaseHTTPRequestHandler):
         parsed_url = urllib.parse.urlparse(self.path)
         path = parsed_url.path[1:]
         params = urllib.parse.parse_qs(parsed_url.query)
-        content_length = int(self.headers["Content-Length"])
+        content_length = int(self.headers["Content-Length"] or 0)
         body = self.rfile.read(content_length).decode("utf-8")
 
         if path in BLACKLISTED_PATHS:
