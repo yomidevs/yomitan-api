@@ -12,7 +12,7 @@
 
 ---
 
-
+## v1.1.3
 
 [RFC 20260301202926 (Emergency Fix: Singleton Crash on Windows)](./docs/rfcs/20260301202926.md)
 
