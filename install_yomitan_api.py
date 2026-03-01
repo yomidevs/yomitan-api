@@ -5,6 +5,7 @@ import json
 import os
 import shutil
 import sys
+import re
 
 DIR = os.path.realpath(os.path.dirname(__file__))
 
@@ -20,22 +21,32 @@ BROWSER_DATA = {
     "firefox": {
         "extension_id_key": "allowed_extensions",
         "extension_ids": ["{6b733b82-9261-47ee-a595-2dda294a4d08}"],
+        "extension_id_format": r"{xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx} or testextension@example.com",
+        "regex_test": r"(?:\{[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}\}|[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+)"
     },
     "chrome": {
         "extension_id_key": "allowed_origins",
         "extension_ids": ["chrome-extension://likgccmbimhjbgkjambclfkhldnlhbnn/"],
+        "extension_id_format": "chrome-extension://xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/",
+        "regex_test": r"chrome-extension:\/\/[a-p]{32}\/"
     },
     "chromium": {
         "extension_id_key": "allowed_origins",
         "extension_ids": ["chrome-extension://likgccmbimhjbgkjambclfkhldnlhbnn/"],
+        "extension_id_format": "chrome-extension://xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/",
+        "regex_test": r"chrome-extension:\/\/[a-p]{32}\/"
     },
     "edge": {
         "extension_id_key": "allowed_origins",
         "extension_ids": ["chrome-extension://likgccmbimhjbgkjambclfkhldnlhbnn/"],
+        "extension_id_format": "chrome-extension://xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/",
+        "regex_test": r"chrome-extension:\/\/[a-p]{32}\/"
     },
     "brave": {
         "extension_id_key": "allowed_origins",
         "extension_ids": ["chrome-extension://likgccmbimhjbgkjambclfkhldnlhbnn/"],
+        "extension_id_format": "chrome-extension://xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/",
+        "regex_test": r"chrome-extension:\/\/[a-p]{32}\/"
     },
 }
 
@@ -113,6 +124,9 @@ PLATFORM_DATA = {
     },
 }
 
+def valid_extension_id(browser:str, extension_id:str) -> bool:
+    return bool(re.fullmatch(BROWSER_DATA[browser]["regex_test"], extension_id))
+
 def platform_data_get() -> dict:
     for platform_name in PLATFORM_DATA:
         data = copy.deepcopy(PLATFORM_DATA[platform_name])
@@ -144,15 +158,24 @@ for i, browser in enumerate(browsers):
     print(f"{i + 1}: {browser}")
 browser = browsers[int(input("Choose browser: ")) - 1]
 
+expected_extension_id_format = BROWSER_DATA[browser]["extension_id_format"]
+
 # generate manifest
 print()
 print(f"Using default Yomitan extension ID for {browser}.")
+print(f"Input extension IDs in the following format: `{expected_extension_id_format}`")
 print("Add more extension IDs, or press enter to continue")
 additional_extension_ids = []
 while True:
     extension_id = input("Extension ID: ")
     if not extension_id:
         break
+    
+    if not valid_extension_id(browser, extension_id):
+        print("\nWarning! You may have provided an invalid extension ID!")
+        print(f"An extension ID in the following format is expected: `{expected_extension_id_format}`")
+        print("This message is purely informational, the provided ID will still be added")
+
     additional_extension_ids.append(extension_id)
 script_path = os.path.join(DIR, "yomitan_api.py")
 if platform_data["platform"] == "windows":
