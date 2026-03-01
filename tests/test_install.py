@@ -24,7 +24,8 @@ def _load_install_module():
         fake_winreg = types.ModuleType("winreg")
         sys.modules.setdefault("winreg", fake_winreg)
 
-    with patch("builtins.input", return_value=""):
+    with patch("builtins.input", return_value=""), \
+         patch("sys.stdin.isatty", return_value=False):
         # Suppress print output during import
         with patch("builtins.print"):
             import importlib

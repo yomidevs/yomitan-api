@@ -1,5 +1,35 @@
 # Release Notes
 
+## v1.1.3
+
+[RFC 20260301202926 (Emergency Fix: Singleton Crash on Windows)](./docs/rfcs/20260301202926.md)
+
+### Bug Fixes
+
+- **[Server] Fix startup crash on Windows** — broaden the exception handling in `ensure_single_instance` to catch `SystemError` wrapping `[WinError 87]`. This ensures the server starts correctly even when platform-specific process management errors occur.
+- **[Tests] Added regression test for singleton crashes** — verified the fix with a new unit test simulating a `SystemError` from `os.kill`.
+
+---
+
+
+## v1.1.2
+
+[RFC 20260301194309 (Version Fix & NM Connectivity Improvements)](./docs/rfcs/20260301194309.md)
+
+### Bug Fixes
+
+- **[Server] Fix "found undefined" version error** — added support for `GET` requests to `/serverVersion` and `/`, ensuring tools like `asbplayer` can correctly detect the API version.
+- **[Server] Improved Native Messaging error handling** — the server now returns specific HTTP status codes (503/504) instead of generic 500 errors when the browser connection is broken or the extension is unresponsive.
+- **[Tests] Fix test suite hangs and KeyboardInterrupts** — patched the unit tests to handle terminal environments and I/O blocking gracefully, ensuring consistent pass rates.
+
+### Improvements
+
+- **[Server] TTY awareness & safeguards** — the server now detects if it is run interactively in a terminal and warns the user if another instance is already active, preventing accidental disruption of background processes.
+- **[Install] Refactored installer for safety** — wrapped the main execution logic in `if __name__ == "__main__":` to allow pure functions to be imported without side-effects.
+
+---
+
+
 ## v1.1.0
 
 [RFC 20260301174846](./docs/rfcs/20260301174846.md)

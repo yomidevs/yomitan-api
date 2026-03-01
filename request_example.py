@@ -24,6 +24,13 @@ def dump_json(filename: str, json_dict: dict[str, Any]) -> None:
         json.dump(json_dict, output_json, indent=4, ensure_ascii=False)
 
 
+def server_version() -> None:
+    print("Requesting serverVersion (GET):")
+    response = requests.get(request_url + "/serverVersion", timeout=request_timeout)
+    print(response)
+    print(response.text)
+
+
 def yomitan_version() -> None:
     print("Requesting yomitanVersion:")
     response = requests.post(request_url + "/yomitanVersion", timeout=request_timeout)
@@ -180,6 +187,7 @@ print(
     "Only the first 100 characters of the result data for each request will be printed"
 )
 print("--------------------------------------------------")
+server_version()
 yomitan_version()
 term_entries()
 kanji_entries()
