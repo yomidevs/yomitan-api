@@ -1,6 +1,18 @@
 # Release Notes
 
-## v1.1.3
+## v1.1.4
+
+[RFC 20260301221919 (Singleton Robustness Fixes)](./docs/rfcs/20260301221919.md)
+
+### Bug Fixes
+
+- **[Server] Fix "lock file leakage" on TTY exit** — `delete_crowbarfile()` now only removes the lock file if its PID matches the current process. This prevents secondary TTY instances from accidentally deleting the background server's lock marker when they exit.
+- **[Server] Prevent "empty lock" bypass** — `ensure_single_instance()` now correctly overwrites an empty `.crowbar` file instead of returning early. This ensures singleton protection even if a previous write was interrupted.
+- **[Tests] Added regression tests for singleton edge cases** — updated `tests/test_server.py` to cover PID-aware deletion and empty file handling.
+
+---
+
+
 
 [RFC 20260301202926 (Emergency Fix: Singleton Crash on Windows)](./docs/rfcs/20260301202926.md)
 

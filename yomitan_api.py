@@ -49,21 +49,19 @@ def ensure_single_instance() -> None:
         try:
             with open(crowbarfile_path, "r") as f:
                 content = f.read().strip()
-                if not content:
-                    return
-                old_pid = int(content)
+                if content:
+                    old_pid = int(content)
+                    # Check if alive
+                    os.kill(old_pid, 0)
 
-            # Check if alive
-            os.kill(old_pid, 0)
+                    if is_tty:
+                        print(f"Warning: Another instance (PID {old_pid}) is already running.")
+                        print("Manual execution is not required. Connection is managed by the browser.")
+                        sys.exit(0)
+                        return
 
-            if is_tty:
-                print(f"Warning: Another instance (PID {old_pid}) is already running.")
-                print("Manual execution is not required. Connection is managed by the browser.")
-                sys.exit(0)
-                return
-
-            os.kill(old_pid, signal.SIGTERM if sys.platform != "win32" else 15)
-            time.sleep(PROCESS_STARTUP_WAIT)
+                    os.kill(old_pid, signal.SIGTERM if sys.platform != "win32" else 15)
+                    time.sleep(PROCESS_STARTUP_WAIT)
         except Exception:
             pass
 
@@ -77,7 +75,10 @@ def ensure_single_instance() -> None:
 def delete_crowbarfile() -> None:
     try:
         if os.path.exists(crowbarfile_path):
-            os.remove(crowbarfile_path)
+            with open(crowbarfile_path, "r") as f:
+                content = f.read().strip()
+            if content and int(content) == os.getpid():
+                os.remove(crowbarfile_path)
     except Exception:
         pass
 
