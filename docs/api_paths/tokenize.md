@@ -12,12 +12,19 @@ Returns tokenized text segments for input text, including readings.
 
     - `scanLength` (`number`): Maximum length to scan for each segment. Lower values provide faster processing while higher values can capture longer compound words.
 
+    - `parser` (`enum<scanning-parser|mecab>`): (Optional) The parser to use for tokenization.
+
+        `scanning-parser`: (Default) Yomitan's default parser.
+
+        `mecab`: The mecab parser, users must also have mecab integration installed to use this parser.
+
 ## Request Example
 
 ```json
 {
     "text": "ヨナグニサンはすごく大きいとかわいい、ガの触角最高",
-    "scanLength": 10
+    "scanLength": 10,
+    "parser": "scanning-parser"
 }
 ```
 
