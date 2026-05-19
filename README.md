@@ -72,6 +72,8 @@ By default, the api is hosted on `http://127.0.0.1:19633`. To change this, edit 
 
 - [/kanjiEntries](./docs/api_paths/kanjiEntries.md)
 
+- [/ankiCardFormats](./docs/api_paths/ankiCardFormats.md)
+
 - [/ankiFields](./docs/api_paths/ankiFields.md)
 
 - [/tokenize](./docs/api_paths/tokenize.md)

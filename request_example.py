@@ -46,6 +46,14 @@ def kanji_entries() -> None:
     print(elide(response.text))
     dump_json("kanjiEntries", response.json())
 
+def anki_card_formats() -> None:
+    print("Requesting ankiCardFormats:")
+    params = {}
+    response = requests.post(request_url + "/ankiCardFormats", json = params, timeout = request_timeout)
+    print(response)
+    print(elide(response.text))
+    dump_json("ankiCardFormats", response.json())
+
 def anki_fields_term() -> None:
     print("Requesting ankiFields type term:")
     params = {
@@ -91,6 +99,7 @@ print("--------------------------------------------------")
 yomitan_version()
 term_entries()
 kanji_entries()
+anki_card_formats()
 anki_fields_term()
 anki_fields_kanji()
 tokenize()
