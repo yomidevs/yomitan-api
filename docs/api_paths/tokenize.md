@@ -32,7 +32,7 @@ Returns tokenized text segments for input text, including readings.
 
 The response contains an array with parsing results from Yomitan's internal `parseText` method. For each result, the `index` corresponds to the index of the input text array or `0` if a string was provided.
 
-Each element in the content array represents a parsed segment with its reading(s) and text. The first segment of each content array entry will contain the filtered `headwords` (a partial of `/termEntries`) from all dictionaryEntries if available. This field will only contain the `term`, `reading`, `sources`, and `frequencies` where the sources are limited to `isPrimary: true`, `matchType: "exact"`, and `originalText` matching the joined text segments. The `frequencies` are from `TermDictionaryEntry.frequencies` for this `headword`. The `headwords` field will be omitted if there are no sources matching the criteria.
+Each element in the content array represents a parsed segment with its reading(s) and text. The first segment of each content array entry will contain the filtered `headwords` (a partial of `/termEntries`) from all dictionaryEntries if available. This field will only contain the `term`, `reading`, `sources`, `frequencies`, and `pronunciations` where the sources are limited to `isPrimary: true`, `matchType: "exact"`, and `originalText` matching the joined text segments. The `frequencies` and `pronunciations` are from `TermDictionaryEntry.frequencies` and `TermDictionaryEntry.pronunciations` for this `headword` respectively. The `headwords` field will be omitted if there are no sources matching the criteria.
 
 Note: Only a single truncated `headwords` field is shown as an example, all items in content here would have this field on its first segment entry.
 
@@ -106,6 +106,24 @@ Note: Only a single truncated `headwords` field is shown as an example, all item
                                         "displayValue": null,
                                         "displayValueParsed": false
                                     },
+                                ],
+                                "pronunciations": [
+                                    {
+                                        "index": 0, // Not meaningful in this context
+                                        "headwordIndex": 0, // Not meaningful in this context
+                                        "dictionary": "アクセント辞典",
+                                        "dictionaryIndex": 15,
+                                        "dictionaryAlias": "アクセント辞典",
+                                        "pronunciations": [
+                                            {
+                                                "type": "pitch-accent",
+                                                "positions": 3,
+                                                "nasalPositions": [],
+                                                "devoicePositions": [],
+                                                "tags": []
+                                            }
+                                        ]
+                                    }
                                 ]
                             }
                         ]
