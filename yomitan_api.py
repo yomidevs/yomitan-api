@@ -14,6 +14,8 @@ import urllib
 ADDR = "127.0.0.1"
 PORT = 19633
 PROCESS_STARTUP_WAIT = 5
+# "@" = system default, ">" = big endian, "<" = little endian (most common)
+ENDIANNESS_MARKER = "@"
 
 YOMITAN_API_NATIVE_MESSAGING_VERSION = 1
 BLACKLISTED_PATHS = ["favicon.ico"]
@@ -51,13 +53,13 @@ def get_message() -> dict:
     raw_length = sys.stdin.buffer.read(4)
     if not raw_length:
         return None
-    message_length = struct.unpack("@I", raw_length)[0]
+    message_length = struct.unpack(ENDIANNESS_MARKER + "I", raw_length)[0]
     message = sys.stdin.buffer.read(message_length).decode("utf-8")
     return json.loads(message)
 
 def send_message(message_content: dict) -> None:
     encoded_content = json.dumps(message_content).encode("utf-8")
-    encoded_length = struct.pack("@I", len(encoded_content))
+    encoded_length = struct.pack(ENDIANNESS_MARKER + "I", len(encoded_content))
     sys.stdout.buffer.write(encoded_length)
     sys.stdout.buffer.write(encoded_content)
     sys.stdout.buffer.flush()
