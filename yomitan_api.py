@@ -14,6 +14,8 @@ import urllib
 ADDR = "127.0.0.1"
 PORT = 19633
 PROCESS_STARTUP_WAIT = 5
+# "@" = system default, ">" = big endian, "<" = little endian (most common)
+ENDIANNESS_MARKER = "@"
 
 YOMITAN_API_NATIVE_MESSAGING_VERSION = 1
 BLACKLISTED_PATHS = ["favicon.ico"]
@@ -51,18 +53,18 @@ def get_message() -> dict:
     raw_length = sys.stdin.buffer.read(4)
     if not raw_length:
         return None
-    message_length = struct.unpack("@I", raw_length)[0]
+    message_length = struct.unpack(ENDIANNESS_MARKER + "I", raw_length)[0]
     message = sys.stdin.buffer.read(message_length).decode("utf-8")
     return json.loads(message)
 
 def send_message(message_content: dict) -> None:
     encoded_content = json.dumps(message_content).encode("utf-8")
-    encoded_length = struct.pack("@I", len(encoded_content))
+    encoded_length = struct.pack(ENDIANNESS_MARKER + "I", len(encoded_content))
     sys.stdout.buffer.write(encoded_length)
     sys.stdout.buffer.write(encoded_content)
     sys.stdout.buffer.flush()
 
-def send_response(request_handler, status_code: int, content_type: str, data: str) -> None:
+def send_response(request_handler: http.server.BaseHTTPRequestHandler, status_code: int, content_type: str, data: str) -> None:
     request_handler.send_response(status_code)
     request_handler.send_header("Content-type", content_type)
     request_handler.send_header("Access-Control-Allow-Origin", "*")
@@ -72,7 +74,7 @@ def send_response(request_handler, status_code: int, content_type: str, data: st
     request_handler.end_headers()
     request_handler.wfile.write(bytes(data, "utf-8"))
 
-def handle_invalid_method(request_handler) -> None:
+def handle_invalid_method(request_handler: http.server.BaseHTTPRequestHandler) -> None:
     request_handler.send_error(405, str(request_handler.command) + " method not allowed, only POST is accepted") # Method Not Allowed
     request_handler.send_header("Allow", "POST")
     request_handler.end_headers()
@@ -113,5 +115,5 @@ try:
     httpd = http.server.HTTPServer((ADDR, PORT), RequestHandler)
     httpd.serve_forever()
     delete_crowbarfile()
-except Exception:
+except Exception:  # noqa: BLE001
     error_log(traceback.format_exc())

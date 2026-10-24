@@ -3,9 +3,9 @@
 import copy
 import json
 import os
+import re
 import shutil
 import sys
-import re
 
 DIR = os.path.realpath(os.path.dirname(__file__))
 
@@ -22,31 +22,31 @@ BROWSER_DATA = {
         "extension_id_key": "allowed_extensions",
         "extension_ids": ["{6b733b82-9261-47ee-a595-2dda294a4d08}"],
         "extension_id_format": r"{xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx} or testextension@example.com",
-        "regex_test": r"(?:\{[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}\}|[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+)"
+        "regex_test": r"(?:\{[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}\}|[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+)",
     },
     "chrome": {
         "extension_id_key": "allowed_origins",
         "extension_ids": ["chrome-extension://likgccmbimhjbgkjambclfkhldnlhbnn/"],
         "extension_id_format": "chrome-extension://xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/",
-        "regex_test": r"chrome-extension:\/\/[a-p]{32}\/"
+        "regex_test": r"chrome-extension:\/\/[a-p]{32}\/",
     },
     "chromium": {
         "extension_id_key": "allowed_origins",
         "extension_ids": ["chrome-extension://likgccmbimhjbgkjambclfkhldnlhbnn/"],
         "extension_id_format": "chrome-extension://xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/",
-        "regex_test": r"chrome-extension:\/\/[a-p]{32}\/"
+        "regex_test": r"chrome-extension:\/\/[a-p]{32}\/",
     },
     "edge": {
         "extension_id_key": "allowed_origins",
         "extension_ids": ["chrome-extension://likgccmbimhjbgkjambclfkhldnlhbnn/"],
         "extension_id_format": "chrome-extension://xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/",
-        "regex_test": r"chrome-extension:\/\/[a-p]{32}\/"
+        "regex_test": r"chrome-extension:\/\/[a-p]{32}\/",
     },
     "brave": {
         "extension_id_key": "allowed_origins",
         "extension_ids": ["chrome-extension://likgccmbimhjbgkjambclfkhldnlhbnn/"],
         "extension_id_format": "chrome-extension://xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/",
-        "regex_test": r"chrome-extension:\/\/[a-p]{32}\/"
+        "regex_test": r"chrome-extension:\/\/[a-p]{32}\/",
     },
 }
 
@@ -170,7 +170,7 @@ while True:
     extension_id = input("Extension ID: ")
     if not extension_id:
         break
-    
+
     if not valid_extension_id(browser, extension_id):
         print("\nWarning! You may have provided an invalid extension ID!")
         print(f"An extension ID in the following format is expected: `{expected_extension_id_format}`")

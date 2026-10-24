@@ -21,6 +21,8 @@ ignore = [
     "UP015", #Checks for redundant `open` mode arguments.
     "PTH118", #Checks for uses of `os.path.join`.
     "PTH111", #Checks for uses of `os.path.expanduser`.
+    "CPY001", #Checks for the absence of copyright notices within Python files.
+    "ICN001", #Checks for imports that are typically imported using a common convention, like `import pandas as pd`, and enforces that convention.
 ]
 [lint.per-file-ignores]
 "request_example.py" = [
