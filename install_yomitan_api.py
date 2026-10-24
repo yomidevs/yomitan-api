@@ -88,6 +88,7 @@ PLATFORM_DATA = {
             "chromium": {
                 "methods": ["file", "registry"],
                 "path": DIR,
+                "registry_path": f"SOFTWARE\\Chromium\\NativeMessagingHosts\\{NAME}",
             },
             "edge": {
                 "methods": ["file", "registry"],
