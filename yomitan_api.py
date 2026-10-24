@@ -62,7 +62,7 @@ def send_message(message_content: dict) -> None:
     sys.stdout.buffer.write(encoded_content)
     sys.stdout.buffer.flush()
 
-def send_response(request_handler, status_code: int, content_type: str, data: str) -> None:
+def send_response(request_handler: http.server.BaseHTTPRequestHandler, status_code: int, content_type: str, data: str) -> None:
     request_handler.send_response(status_code)
     request_handler.send_header("Content-type", content_type)
     request_handler.send_header("Access-Control-Allow-Origin", "*")
@@ -72,7 +72,7 @@ def send_response(request_handler, status_code: int, content_type: str, data: st
     request_handler.end_headers()
     request_handler.wfile.write(bytes(data, "utf-8"))
 
-def handle_invalid_method(request_handler) -> None:
+def handle_invalid_method(request_handler: http.server.BaseHTTPRequestHandler) -> None:
     request_handler.send_error(405, str(request_handler.command) + " method not allowed, only POST is accepted") # Method Not Allowed
     request_handler.send_header("Allow", "POST")
     request_handler.end_headers()
@@ -113,5 +113,5 @@ try:
     httpd = http.server.HTTPServer((ADDR, PORT), RequestHandler)
     httpd.serve_forever()
     delete_crowbarfile()
-except Exception:
+except Exception:  # noqa: BLE001
     error_log(traceback.format_exc())
