@@ -24,6 +24,12 @@ BROWSER_DATA = {
         "extension_id_format": r"{xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx} or testextension@example.com",
         "regex_test": r"(?:\{[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}\}|[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+)",
     },
+    "librewolf": {
+        "extension_id_key": "allowed_extensions",
+        "extension_ids": ["{6b733b82-9261-47ee-a595-2dda294a4d08}"],
+        "extension_id_format": r"{xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx} or testextension@example.com",
+        "regex_test": r"(?:\{[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}\}|[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+)",
+    },
     "chrome": {
         "extension_id_key": "allowed_origins",
         "extension_ids": ["chrome-extension://likgccmbimhjbgkjambclfkhldnlhbnn/"],
@@ -58,6 +64,10 @@ PLATFORM_DATA = {
                 "methods": ["file"],
                 "path": os.path.expanduser("~/.mozilla/native-messaging-hosts/"),
             },
+            "librewolf": {
+                "methods": ["file"],
+                "path": os.path.expanduser("~/.librewolf/native-messaging-hosts/"),
+            },
             "chrome": {
                 "methods": ["file"],
                 "path": os.path.expanduser("~/.config/google-chrome/NativeMessagingHosts/"),
@@ -76,6 +86,11 @@ PLATFORM_DATA = {
         "platform_aliases": ["win32", "cygwin"],
         "manifest_install_data": {
             "firefox": {
+                "methods": ["file", "registry"],
+                "path": DIR,
+                "registry_path": f"SOFTWARE\\Mozilla\\NativeMessagingHosts\\{NAME}",
+            },
+            "librewolf": {
                 "methods": ["file", "registry"],
                 "path": DIR,
                 "registry_path": f"SOFTWARE\\Mozilla\\NativeMessagingHosts\\{NAME}",
@@ -108,6 +123,10 @@ PLATFORM_DATA = {
             "firefox": {
                 "methods": ["file"],
                 "path": os.path.expanduser("~/Library/Application Support/Mozilla/NativeMessagingHosts/"),
+            },
+            "librewolf": {
+                "methods": ["file"],
+                "path": os.path.expanduser("~/Library/Application Support/LibreWolf/NativeMessagingHosts/"),
             },
             "chrome": {
                 "methods": ["file"],
@@ -164,8 +183,8 @@ expected_extension_id_format = BROWSER_DATA[browser]["extension_id_format"]
 # generate manifest
 print()
 print(f"Using default Yomitan extension ID for {browser}.")
+print("Optionally add more extension IDs, or press enter to continue with the default extension ID.")
 print(f"Input extension IDs in the following format: `{expected_extension_id_format}`")
-print("Add more extension IDs, or press enter to continue")
 additional_extension_ids = []
 while True:
     extension_id = input("Extension ID: ")
