@@ -10,6 +10,8 @@ Returns term dictionary entries for search text as they are represented internal
 
     - `term` (`string|array<string>`): The term to return data for. If an array is provided, each element will be processed concurrently.
 
+    - `profileIndex` (`int`): (Optional) The profile whose dictionaries are searched. Uses the active profile by default.
+
 ## Request Example
 
 - Request method: `POST`
