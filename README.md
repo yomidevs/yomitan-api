@@ -78,6 +78,12 @@ By default, the api is hosted on `http://127.0.0.1:19633`. To change this, edit 
 
 - [/tokenize](./docs/api_paths/tokenize.md)
 
+- [/dictionaryInfo](./docs/api_paths/dictionaryInfo.md)
+
+- [/displayOptions](./docs/api_paths/displayOptions.md)
+
+- [/dictionaryMedia](./docs/api_paths/dictionaryMedia.md)
+
 ## Examples
 
 [Yomitan API Request Example Python](./request_example.py)

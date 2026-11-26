@@ -20,13 +20,14 @@ Returns tokenized text segments for input text, including readings.
 
 ## Request Example
 
-```json
-{
-    "text": "ヨナグニサンはすごく大きいとかわいい、ガの触角最高",
-    "scanLength": 10,
-    "parser": "scanning-parser"
-}
-```
+- Body:
+    ```json
+    {
+        "text": "ヨナグニサンはすごく大きいとかわいい、ガの触角最高",
+        "scanLength": 10,
+        "parser": "scanning-parser"
+    }
+    ```
 
 ## Response Example (200)
 
