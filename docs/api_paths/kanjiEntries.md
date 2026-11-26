@@ -10,6 +10,8 @@ Returns kanji dictionary entries for search text as they are represented interna
 
     - `character` (`string`): The character to return data for.
 
+    - `profileIndex` (`int`): (Optional) The profile whose dictionaries are searched. Uses the active profile by default.
+
 ## Request Example
 
 - Request method: `POST`

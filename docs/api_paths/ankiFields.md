@@ -22,6 +22,8 @@ Returns rendered Anki handlebars for dictionary entries found for search text.
 
     - `includeMedia` (`bool`): Whether to return data such as images and audio.
 
+    - `profileIndex` (`int`): (Optional) The profile whose dictionaries, Anki field templates and audio sources are used. Uses the active profile by default.
+
 ## Request Example
 
 - Request method: `POST`

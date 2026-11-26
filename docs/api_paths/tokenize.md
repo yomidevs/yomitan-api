@@ -18,6 +18,8 @@ Returns tokenized text segments for input text, including readings.
 
         `mecab`: The mecab parser, users must also have mecab integration installed to use this parser.
 
+    - `profileIndex` (`int`): (Optional) The profile whose dictionaries are used for parsing. Uses the active profile by default.
+
 ## Request Example
 
 - Body:
