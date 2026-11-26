@@ -93,6 +93,35 @@ def tokenize() -> None:
     print(elide(response.text))
     dump_json("tokenize", response.json())
 
+def dictionary_info() -> None:
+    print("Requesting dictionaryInfo:")
+    response = requests.post(request_url + "/dictionaryInfo", timeout = request_timeout)
+    print(response)
+    print(elide(response.text))
+    dump_json("dictionaryInfo", response.json())
+
+def display_options() -> None:
+    print("Requesting displayOptions:")
+    response = requests.post(request_url + "/displayOptions", timeout = request_timeout)
+    print(response)
+    print(elide(response.text))
+    dump_json("displayOptions", response.json())
+
+def dictionary_media() -> None:
+    print("Requesting dictionaryMedia:")
+    params =     {
+        "targets": [
+            {
+                "dictionary": "Test Dictionary",
+                "path": "image.gif",
+            },
+        ],
+    }
+    response = requests.post(request_url + "/dictionaryMedia", json = params, timeout = request_timeout)
+    print(response)
+    print(elide(response.text))
+    dump_json("dictionaryMedia", response.json())
+
 print("Yomitan API request example demo")
 print("Only the first 100 characters of the result data for each request will be printed")
 print("--------------------------------------------------")
@@ -103,3 +132,6 @@ anki_card_formats()
 anki_fields_term()
 anki_fields_kanji()
 tokenize()
+dictionary_info()
+display_options()
+dictionary_media()
