@@ -8,8 +8,6 @@ The options always match the active profile.
 
 - Request method: `POST`
 
-- Body: None
-
 ## Response Example (200)
 
 - `general`: Options from the profile's general settings.

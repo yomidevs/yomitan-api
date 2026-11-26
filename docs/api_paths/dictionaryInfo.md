@@ -6,8 +6,6 @@ Returns the installed dictionaries, each with a summary as it is represented int
 
 - Request method: `POST`
 
-- Body: None
-
 ## Response Example (200)
 
 The dictionaries are in the active profile's order. A dictionary the profile doesn't list yet comes at the bottom of the list with `options` set to `null`; lookups don't use it until it is added to the profile by the Settings page.
